@@ -1,0 +1,16 @@
+= form_for @user do |f|
+  - if @user.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+      %ul
+        - @user.errors.full_messages.each do |message|
+          %li= message
+  = f.label :first_name, class: "control-label"
+  = f.text_field :first_name, class: "form-control"
+  = f.label :last_name, class: "control-label"
+  = f.text_field :last_name, class: "form-control"
+  = f.label :avatar, class: "control-label"
+  = image_tag @user.avatar.preview(resize: '100') if @user.avatar.attached?
+  = f.file_field :avatar, accept: "image/jpg", class: "form-control"
+  .actions
+    = f.submit 'Save'
